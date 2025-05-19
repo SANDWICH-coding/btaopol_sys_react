@@ -30,7 +30,7 @@ function Login() {
 
       localStorage.setItem("token", token);
       console.log("Login successful!", token);
-      navigate("/dashboard");
+      navigate("/school");
     } catch (err) {
       console.error(
         "Login failed:",
@@ -45,6 +45,14 @@ function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
       <div className="w-full max-w-sm space-y-6 rounded-xl bg-white p-8 shadow-lg">
+        {/* Logo at the top center */}
+        <div className="flex justify-center mb-4">
+          <img
+            src="/default-logo.jpg"
+            alt="Logo"
+            className="h-20 w-auto"
+          />
+        </div>
         <h1 className="text-2xl font-bold text-center text-gray-800">Login</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input

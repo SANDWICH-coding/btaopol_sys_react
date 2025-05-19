@@ -6,9 +6,18 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'], // Set Inter as default sans
+        sans: ['Inter', 'sans-serif'],
+      },
+      keyframes: {
+        'slide-in': {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
+      },
+      animation: {
+        'slide-in': 'slide-in 0.3s ease-out forwards',
       },
     },
   },
   plugins: [],
-}
+};

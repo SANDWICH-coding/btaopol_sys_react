@@ -18,8 +18,8 @@ const ModalForm = ({ isOpen, onClose, title, children }) => {
                     <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" />
                 </Transition.Child>
 
-                {/* Modal panel */}
-                <div className="fixed inset-0 flex items-center justify-center p-4">
+                {/* Modal container */}
+                <div className="fixed inset-0 flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-200"
@@ -29,8 +29,27 @@ const ModalForm = ({ isOpen, onClose, title, children }) => {
                         leaveFrom="opacity-100 scale-100 translate-y-0"
                         leaveTo="opacity-0 scale-95 translate-y-4"
                     >
-                        <Dialog.Panel className="w-full max-w-lg rounded-xl bg-white p-9 shadow-xl transition-all">
-                            {/* Render inner form */}
+                        <Dialog.Panel
+                            className="
+                                w-full 
+                                max-w-md 
+                                sm:max-w-lg 
+                                rounded-xl 
+                                bg-white 
+                                p-4 
+                                sm:p-6 
+                                md:p-8 
+                                shadow-xl 
+                                transition-all
+                                max-h-[90vh]
+                                overflow-y-auto
+                            "
+                        >
+                            {title && (
+                                <Dialog.Title className="text-lg font-semibold mb-4">
+                                    {title}
+                                </Dialog.Title>
+                            )}
                             <div>{children}</div>
                         </Dialog.Panel>
                     </Transition.Child>

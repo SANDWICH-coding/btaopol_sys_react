@@ -136,7 +136,7 @@ const BillingConfiguration = () => {
             {paginatedGroups.map(group => (
                 <div key={group.yearLevelId} className="bg-white px-6">
                     <div className="flex items-center justify-between border-t border-b bg-gray-100">
-                        <h4 className="font-medium text-sm px-2 text-gray-800">{group.yearLevelName}</h4>
+                        <h4 className="font-bold text-xs px-2 text-gray-600 uppercase tracking-widest">{group.yearLevelName}</h4>
                         <Button
                             onClick={() => {
                                 setSelectedYearLevelId(group.yearLevelId);

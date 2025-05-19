@@ -1,11 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
-import { FiHome, FiBook, FiUsers } from "react-icons/fi";
+import { FiBook, FiUsers } from "react-icons/fi";
 
 function Sidebar({ open, setOpen }) {
     const location = useLocation();
 
     const navItems = [
-        { path: "/dashboard", label: "Dashboard", icon: <FiHome /> },
         { path: "/school", label: "School", icon: <FiBook /> },
         { path: "/student", label: "Student", icon: <FiUsers /> },
     ];

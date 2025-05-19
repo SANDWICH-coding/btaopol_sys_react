@@ -9,7 +9,7 @@ const variantStyles = {
     outline: "border border-gray-300 text-gray-900 hover:bg-gray-100",
     ghost: "bg-transparent text-blue-500 hover:bg-gray-100",
     link: "text-blue-600 underline hover:text-blue-700",
-    grayTrans: "text-gray-500 text-lg font-medium",
+    grayTrans: "text-blue-500 text-lg font-medium",
 };
 
 const sizeStyles = {

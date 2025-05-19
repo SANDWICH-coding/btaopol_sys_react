@@ -131,10 +131,10 @@ const SchoolYearCardList = () => {
             {!loading && (
                 <div
                     onClick={() => setIsFormOpen(true)}
-                    className="bg-white shadow rounded-lg p-5 flex items-center justify-center hover:shadow-md cursor-pointer transition border-dashed border-2 border-gray-300"
+                    className="bg-white shadow rounded-lg p-5 hover:border-blue-500 flex items-center justify-center hover:shadow-md cursor-pointer transition border-dashed border-2 border-gray-300"
                 >
-                    <FiPlusSquare className="text-2xl text-gray-500 mr-2" />
-                    <p className="text-gray-500 text-lg font-medium">Create New</p>
+                    <FiPlusSquare className="text-2xl text-blue-500 mr-2" />
+                    <p className="text-blue-500 text-lg font-medium">Create New</p>
                 </div>
             )}
 

@@ -101,7 +101,7 @@ export default function YearLevelClasses() {
             toast.info("Class removed.");
         } catch (err) {
             console.error("Delete failed:", err);
-            alert("Failed to delete the class.");
+            toast.info("Can't remove class. Class is being used.");
         }
     };
 
@@ -140,7 +140,7 @@ export default function YearLevelClasses() {
             {paginatedData.map((group) => (
                 <div key={group.yearLevelId} className="bg-white px-6">
                     <div className="flex items-center justify-between border-t border-b bg-gray-100">
-                        <h4 className="font-medium text-sm px-2 text-gray-800">{group.yearLevelName}</h4>
+                        <h4 className="font-bold text-xs text-sm px-2 text-gray-600 uppercase tracking-widest">{group.yearLevelName}</h4>
                         <Button
                             onClick={() => { setSelectedYearLevel(group); setIsClassFormOpen(true); }}
                             variant="ghost"
@@ -208,7 +208,7 @@ export default function YearLevelClasses() {
                         onClick={() => setIsYearLevelFormOpen(true)}
                         variant="grayTrans"
                         size="sm"
-                        className="bg-white shadow rounded-lg p-5 flex items-center justify-center hover:shadow-md cursor-pointer transition border-dashed border-2 border-gray-300"
+                        className="bg-white shadow rounded-lg p-5 flex items-center justify-center hover:shadow-md hover:border-blue-500 cursor-pointer transition border-dashed border-2 border-gray-300"
                     >
                         + Year Level
                     </Button>

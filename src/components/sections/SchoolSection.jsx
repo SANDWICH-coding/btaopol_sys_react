@@ -2,6 +2,7 @@ import React from 'react'
 import SchoolYearCardList from '../inside_sections/SchoolYearCardList'
 import YearLevelClasses from '../inside_sections/YearLevelClasses'
 import BillingConfiguration from '../inside_sections/BillingConfiguration'
+import BillingDiscount from '../inside_sections/BillingDiscount'
 
 const SchoolSection = () => {
     return (
@@ -13,22 +14,23 @@ const SchoolSection = () => {
 
             <div className="p-5">
                 <div className="grid grid-cols-1 border-t py-9 lg:grid-cols-2 gap-9">
-                    <div className="bg-white border mb-4 rounded-lg">
-                        <h1 className="font-medium mt-8 mb-2 px-6 rounded-t-lg">
-                            Year Levels & Classes
-                        </h1>
-                        <p className="text-xs px-6 mb-6">Displays all classes grouped by year level for the active school year.</p>
+                    <div className="bg-white border mb-2 rounded-lg">
+                        <h1 className="font-medium mt-8 mb-6 px-6 rounded-t-lg">Year Levels & Classes</h1>
                         <YearLevelClasses />
                     </div>
 
+                    <div className="bg-white border mb-2 rounded-lg">
+                        <h1 className="font-medium mt-8 mb-6 px-6 rounded-t-lg">Billing Configuration</h1>
+                        <BillingConfiguration />
+                    </div>
 
                     <div className="bg-white border mb-4 rounded-lg">
-                        <h1 className="font-medium mt-8 mb-2 px-6 rounded-t-lg">Billing Configuration</h1>
-                        <p className="text-xs px-6 mb-6">Assign billing items to each year level.</p>
-                        <BillingConfiguration />
+                        <h1 className="font-medium mt-8 mb-6 px-6 rounded-t-lg">Discount Previleges</h1>
+                        <BillingDiscount />
                     </div>
                 </div>
             </div>
+
         </div>
     )
 }

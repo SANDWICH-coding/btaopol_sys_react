@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 
 function Header({ setSidebarOpen }) {
@@ -31,7 +32,7 @@ function Header({ setSidebarOpen }) {
                 }
             );
             localStorage.removeItem("token");
-            alert("Logged out successfully.");
+            toast.info("Logout.");
             navigate("/");
         } catch (error) {
             console.error("Logout failed:", error);

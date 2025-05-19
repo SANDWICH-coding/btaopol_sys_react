@@ -25,16 +25,6 @@ function App() {
             </GuestRoute>
           }
         />
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <DashboardLayout>
-                <h1>Dashboard</h1>
-              </DashboardLayout>
-            </ProtectedRoute>
-          }
-        />
 
         <Route
           path="/school"
@@ -59,7 +49,7 @@ function App() {
         />
         <Route path="/register-user" element={<Register />} />
       </Routes>
-      <ToastContainer position="top-right" />
+      <ToastContainer position="bottom-right" />
     </BrowserRouter>
 
   );

@@ -8,7 +8,7 @@ const DataTable = ({ columns, data }) => {
     const [sortKey, setSortKey] = useState(null);
     const [sortOrder, setSortOrder] = useState("asc");
     const [currentPage, setCurrentPage] = useState(1);
-    const ITEMS_PER_PAGE = 5;
+    const ITEMS_PER_PAGE = 500;
 
     // Filtered and sorted data
     const filteredData = useMemo(() => {

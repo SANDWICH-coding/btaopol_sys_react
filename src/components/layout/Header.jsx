@@ -14,6 +14,7 @@ function Header({ setSidebarOpen }) {
         "/dashboard": "Dashboard",
         "/school": "School Configuration",
         "/student": "Student Management",
+        "/billing": "Billing Management",
         // Add more routes as needed
     };
 
@@ -41,7 +42,7 @@ function Header({ setSidebarOpen }) {
     };
 
     return (
-        <header className="bg-white shadow-sm px-4 py-4 flex items-center justify-between">
+        <header className="bg-white shadow-sm px-4 py-5 flex items-center justify-between">
             {/* Sidebar Toggle (mobile only) */}
             <button
                 onClick={() => setSidebarOpen((prev) => !prev)}

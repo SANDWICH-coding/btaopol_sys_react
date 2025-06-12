@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Input from '../common/Input';
 import Button from '../common/Button';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+import axiosInstance from '../../axiosInstance';
 
 const CreateClassArmForm = ({ onSubmit, onCancel, yearLevelId, yearLevelName }) => {
     const [formData, setFormData] = useState({
@@ -36,11 +36,7 @@ const CreateClassArmForm = ({ onSubmit, onCancel, yearLevelId, yearLevelName }) 
                 yearLevelId,
             };
 
-            const res = await axios.post('http://localhost:8000/api/class-arm', payload, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
+            const res = await axiosInstance.post('/class-arm', payload);
 
             toast.success('Class created successfully!');
             onSubmit && onSubmit(res.data.data);
@@ -54,6 +50,7 @@ const CreateClassArmForm = ({ onSubmit, onCancel, yearLevelId, yearLevelName }) 
             setLoading(false);
         }
     };
+
 
     return (
         <div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../axiosInstance";
 import Button from "../common/Button";
 import { toast } from "react-toastify";
 import Input from "../common/Input";
@@ -15,10 +15,9 @@ export default function UpdateClassArmForm({ classArm, onSubmit, onCancel }) {
         setError(null);
 
         try {
-            const response = await axios.put(`http://127.0.0.1:8000/api/class-arm/${classArm.classArmId}`, {
+            const response = await axiosInstance.put(`/class-arm/${classArm.classArmId}`, {
                 yearLevelId: classArm.yearLevelId,
                 className: className.trim(),
-
             });
             toast.info("Class name updated.");
             onSubmit(response.data.data); // Return updated data
@@ -29,6 +28,7 @@ export default function UpdateClassArmForm({ classArm, onSubmit, onCancel }) {
             setLoading(false);
         }
     };
+
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4 p-4">

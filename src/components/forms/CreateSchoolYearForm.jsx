@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../axiosInstance";
 import { toast } from 'react-toastify';
 import Button from "../common/Button";
 import Input from "../common/Input";
@@ -50,10 +50,7 @@ const CreateSchoolYearForm = ({ onSave, onClose }) => {
 
         setLoading(true); // <-- START loading
         try {
-            const response = await axios.post(
-                "http://localhost:8000/api/school-year",
-                formData
-            );
+            const response = await axiosInstance.post("/school-year", formData);
 
             onSave && onSave(response.data);
             toast.success("Data successfully added!");
@@ -70,6 +67,7 @@ const CreateSchoolYearForm = ({ onSave, onClose }) => {
             setLoading(false); // <-- STOP loading
         }
     };
+
 
     return (
         <div>

@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../axiosInstance";
 import Button from "../common/Button";
 import ModalForm from "../common/ModalForm";
 import CreateYearLevelForm from "../forms/CreateYearLevelForm";
 import CreateClassArmForm from "../forms/CreateClassArmForm";
-import { MdFormatListBulletedAdd } from "react-icons/md";
 import UpdateClassArmForm from "../forms/UpdateClassArmForm";
 import { toast } from "react-toastify";
 
-const ITEMS_PER_PAGE = 2;
+const ITEMS_PER_PAGE = 3;
 
 export default function YearLevelClasses() {
     const [data, setData] = useState([]);
@@ -24,7 +23,7 @@ export default function YearLevelClasses() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://127.0.0.1:8000/api/year-level");
+                const response = await axiosInstance.get("/year-level");
                 setData(response.data);
             } catch (err) {
                 setError("Failed to fetch data");
@@ -36,6 +35,7 @@ export default function YearLevelClasses() {
 
         fetchData();
     }, []);
+
 
     const handleAddClassArm = (newClassArm) => {
         setData(prevData =>
@@ -85,7 +85,7 @@ export default function YearLevelClasses() {
 
     const handleDelete = async (cls) => {
         try {
-            await axios.delete(`http://127.0.0.1:8000/api/class-arm/${cls.classArmId}`);
+            await axiosInstance.delete(`/class-arm/${cls.classArmId}`);
 
             setData(prevData =>
                 prevData.map(yl => {
@@ -104,6 +104,7 @@ export default function YearLevelClasses() {
             toast.info("Can't remove class. Class is being used.");
         }
     };
+
 
 
     // Skeleton loading
@@ -136,7 +137,7 @@ export default function YearLevelClasses() {
     );
 
     return (
-        <div className="max-w-5xl mx-auto">
+        <div>
             {paginatedData.map((group) => (
                 <div key={group.yearLevelId} className="bg-white px-6">
                     <div className="flex items-center justify-between border-t border-b bg-gray-100">
@@ -144,10 +145,9 @@ export default function YearLevelClasses() {
                         <Button
                             onClick={() => { setSelectedYearLevel(group); setIsClassFormOpen(true); }}
                             variant="ghost"
-                            size="md"
-                            className="text-xl"
+                            size="sm"
                         >
-                            <MdFormatListBulletedAdd />
+                            Add Class
                         </Button>
                     </div>
 

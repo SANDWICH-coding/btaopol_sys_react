@@ -12,6 +12,9 @@ import Login from "./components/pages/Login";
 import DashboardLayout from "./components/layout/DashboardLayout";
 import SchoolSection from "./components/sections/SchoolSection";
 import StudentSection from './components/sections/StudentSection';
+import BillingSection from './components/sections/BillingSection';
+
+import ShowUsers from './components/pages/ShowUsers';
 
 function App() {
   return (
@@ -43,6 +46,28 @@ function App() {
             <ProtectedRoute>
               <DashboardLayout>
                 <StudentSection />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/show-user"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <ShowUsers />
+              </DashboardLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/billing"
+          element={
+            <ProtectedRoute>
+              <DashboardLayout>
+                <BillingSection />
               </DashboardLayout>
             </ProtectedRoute>
           }

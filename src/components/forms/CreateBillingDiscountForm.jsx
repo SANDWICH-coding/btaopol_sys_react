@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../axiosInstance";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import Dropdown from "../common/Dropdown";
@@ -50,7 +50,7 @@ const CreateBillingDiscountForm = ({ onSave, onClose }) => {
     };
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/billing-discount", payload);
+      const response = await axiosInstance.post("/billing-discount", payload);
       onSave(response.data.data);
     } catch (err) {
       setError("Failed to create discount.");
@@ -59,6 +59,7 @@ const CreateBillingDiscountForm = ({ onSave, onClose }) => {
       setSaving(false);
     }
   };
+
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../axiosInstance";
 import Button from "../common/Button";
 import Input from "../common/Input";
 import { toast } from 'react-toastify';
@@ -31,10 +31,7 @@ const CreateYearLevelForm = ({ onSave, onClose }) => {
 
     setLoading(true); // <-- START loading
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/year-level",
-        formData
-      );
+      const response = await axiosInstance.post("/year-level", formData);
 
       onSave && onSave(response.data);
       toast.success('New year level created!');
@@ -51,6 +48,7 @@ const CreateYearLevelForm = ({ onSave, onClose }) => {
       setLoading(false); // <-- STOP loading
     }
   };
+
 
   return (
     <div>

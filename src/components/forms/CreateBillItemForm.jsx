@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../axiosInstance";
 import Input from "../common/Input";
 import Button from "../common/Button";
 import Dropdown from "../common/Dropdown";
@@ -51,8 +51,8 @@ const CreateBillItemForm = ({ yearLevelId, yearLevelName, onClose, onSave, setGr
                 },
             };
 
-            const response = await axios.post(
-                "http://localhost:8000/api/billing-configuration",
+            const response = await axiosInstance.post(
+                "/billing-configuration",
                 payload
             );
 

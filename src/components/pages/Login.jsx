@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../axiosInstance";
 import { useNavigate } from "react-router-dom";
 import Button from "../common/Button";
 import Input from "../common/Input";
@@ -21,7 +21,7 @@ function Login() {
     }
 
     try {
-      const res = await axios.post("http://127.0.0.1:8000/api/login", {
+      const res = await axiosInstance.post("/login", {
         username,
         password,
       });
@@ -41,6 +41,7 @@ function Login() {
       );
     }
   };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">

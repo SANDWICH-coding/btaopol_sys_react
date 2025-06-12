@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { toast } from 'react-toastify';
 import { FiToggleLeft, FiToggleRight, FiPlusSquare } from "react-icons/fi";
 import ModalForm from "../common/ModalForm";
 import CreateSchoolYearForm from "../forms/CreateSchoolYearForm";
 import { LuSchool } from "react-icons/lu";
+import axiosInstance from "../../axiosInstance";
 
 const SkeletonCard = () => (
     <div className="bg-white shadow rounded-lg p-4 animate-pulse">
@@ -19,7 +19,7 @@ const SkeletonCard = () => (
     </div>
 );
 
-const SchoolYearCard = ({schoolYear, isActive, onToggle }) => {
+const SchoolYearCard = ({ schoolYear, isActive, onToggle }) => {
     return (
         <div className="bg-white shadow rounded-lg p-4 flex items-center justify-between hover:shadow-md transition">
             <div className="flex items-center gap-4">
@@ -56,8 +56,8 @@ const SchoolYearCardList = () => {
 
     const fetchSchoolYears = () => {
         setLoading(true);
-        axios
-            .get("http://localhost:8000/api/school-year")
+        axiosInstance
+            .get("/school-year")
             .then((response) => {
                 const formatted = response.data.map((item) => ({
                     id: item.schoolYearId,
@@ -90,8 +90,8 @@ const SchoolYearCardList = () => {
     const handleToggleStatus = (id, currentStatus) => {
         const newStatus = currentStatus ? 0 : 1;
 
-        axios
-            .patch(`http://localhost:8000/api/school-year/${id}`, { status: newStatus })
+        axiosInstance
+            .patch(`/school-year/${id}`, { status: newStatus })
             .then(() => {
                 toast.success(`School year ${newStatus === 1 ? 'activated' : 'deactivated'} successfully!`);
                 setSchoolYears((prev) =>
@@ -107,6 +107,7 @@ const SchoolYearCardList = () => {
             .catch(() => {
                 toast.error("Failed to update school year status.");
             });
+
     };
 
     if (error) return <p className="text-red-500">{error}</p>;

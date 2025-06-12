@@ -2,12 +2,11 @@ import React, { useState, useEffect, useMemo, useCallback } from "react";
 import Button from "../common/Button";
 import DataTable from "../common/DataTable";
 import ModalForm from "../common/ModalForm";
-import CreateEnrollmentForm from "../forms/CreateEnrollmentForm";
-import { toast } from "react-toastify";
-import SlidePanel from "../common/SlidePanel";
+import CreatePaymentForm from "../forms/CreatePaymentForm";
+import SlidePanelBilling from "../common/SlidePanelBilling";
 import axiosInstance from "../../axiosInstance";
 
-const StudentEnrollment = () => {
+const StudentBilling = () => {
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [apiData, setApiData] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -53,14 +52,6 @@ const StudentEnrollment = () => {
         return map;
     }, [apiData]);
 
-    const classArmMap = useMemo(() => {
-        const map = {};
-        apiData?.classArms?.forEach(({ classArmId, className }) => {
-            map[classArmId] = className;
-        });
-        return map;
-    }, [apiData]);
-
     const data = useMemo(() => {
         if (!apiData?.students) return [];
 
@@ -74,15 +65,12 @@ const StudentEnrollment = () => {
                     : "/default-avatar.png",
                 email: student.lrn,
                 yearLevelName: yearLevelMap[enrollment.yearLevelId] ?? "N/A",
-                classArmName: classArmMap[enrollment.classArmId] ?? "N/A",
-                enrollmentType: enrollment.enrollmentType,
-                enrollmentNumber: enrollment.enrollmentNumber,
                 schoolYear: enrollment.schoolYearId,
                 yearLevelId: enrollment.yearLevelId,
                 enrollmentId: enrollment.enrollmentId,
             }))
         );
-    }, [apiData, yearLevelMap, classArmMap]);
+    }, [apiData, yearLevelMap]);
 
     const columns = useMemo(() => [
         {
@@ -99,8 +87,6 @@ const StudentEnrollment = () => {
             ),
         },
         { key: "yearLevelName", label: "Year Level" },
-        { key: "classArmName", label: "Class" },
-        { key: "enrollmentType", label: "Type" },
         {
             key: "actions",
             label: "Action",
@@ -116,40 +102,7 @@ const StudentEnrollment = () => {
     ], [handleView]);
 
     const handleSubmit = async (formData) => {
-        try {
-            const response = await axiosInstance.post('/enrollment', formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
-
-            const result = response.data;
-
-            toast.success("Student enrolled successfully!");
-            setIsFormOpen(false);
-
-            const { student: newStudent, enrollment: newEnrollment } = result;
-
-            setApiData((prev) => {
-                if (!prev) return prev;
-
-                const existingStudentIndex = prev.students.findIndex(
-                    (s) => s.studentId === newStudent.studentId
-                );
-
-                if (existingStudentIndex !== -1) {
-                    const updatedStudents = [...prev.students];
-                    updatedStudents[existingStudentIndex].enrollments.push(newEnrollment);
-                    return { ...prev, students: updatedStudents };
-                }
-
-                return {
-                    ...prev,
-                    students: [...prev.students, { ...newStudent, enrollments: [newEnrollment] }],
-                };
-            });
-        } catch (err) {
-            toast.error(err.response?.data?.message || err.message || "Enrollment failed.");
-            console.error(err);
-        }
+        return
     };
 
 
@@ -171,14 +124,14 @@ const StudentEnrollment = () => {
         <div>
             <div className="p-5 bg-white border mb-4 rounded-lg">
                 <div className="flex items-start justify-between px-6 mb-6">
-                    <h1 className="font-medium text-xl">Manage Enrollment</h1>
+                    <div></div>
                     <Button
                         className="px-3 py-1"
                         variant="primary"
                         onClick={handleOpenModal}
                         size="md"
                     >
-                        Enroll Student
+                        New Payment
                     </Button>
                 </div>
 
@@ -190,14 +143,14 @@ const StudentEnrollment = () => {
             </div>
 
             <ModalForm isOpen={isFormOpen} onClose={handleCloseModal}>
-                <CreateEnrollmentForm onSave={handleSubmit} onClose={handleCloseModal} />
+                <CreatePaymentForm onSave={handleSubmit} onClose={handleCloseModal} />
             </ModalForm>
 
             {isSlideOpen && selectedStudent && (
-                <SlidePanel student={selectedStudent} onClose={handleCloseSlide} />
+                <SlidePanelBilling student={selectedStudent} onClose={handleCloseSlide} />
             )}
         </div>
     );
 };
 
-export default StudentEnrollment;
+export default StudentBilling;

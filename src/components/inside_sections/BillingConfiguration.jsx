@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../axiosInstance";
 import Button from "../common/Button";
 import CreateBillItemForm from "../forms/CreateBillItemForm";
 import ModalForm from "../common/ModalForm";
 import UpdateBillItemForm from "../forms/UpdateBillItemForm";
-import { MdFormatListBulletedAdd } from "react-icons/md";
 
 const ITEMS_PER_PAGE = 1;
 
@@ -26,8 +25,8 @@ const BillingConfiguration = () => {
     const fetchData = async () => {
         try {
             const [billingResponse, yearLevelResponse] = await Promise.all([
-                axios.get("http://127.0.0.1:8000/api/billing-configuration"),
-                axios.get("http://127.0.0.1:8000/api/year-level")
+                axiosInstance.get("/billing-configuration"),
+                axiosInstance.get("/year-level")
             ]);
 
             const billings = billingResponse.data;
@@ -53,6 +52,7 @@ const BillingConfiguration = () => {
             setLoading(false);
         }
     };
+
 
     useEffect(() => {
         fetchData(); // Initial data fetch
@@ -128,7 +128,7 @@ const BillingConfiguration = () => {
     );
 
     return (
-        <div className="max-w-5xl mx-auto">
+        <div>
             {groupedData.some(group => group.billings.length > 0) && (
                 <div>{/* Optionally add table headers here */}</div>
             )}
@@ -144,10 +144,9 @@ const BillingConfiguration = () => {
                                 setIsBillItemFormOpen(true);
                             }}
                             variant="ghost"
-                            size="md"
-                            className="text-xl"
+                            size="sm"
                         >
-                            <MdFormatListBulletedAdd />
+                            Add Item
                         </Button>
                     </div>
 

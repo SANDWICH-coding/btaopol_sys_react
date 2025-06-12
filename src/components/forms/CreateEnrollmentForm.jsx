@@ -4,7 +4,7 @@ import Input from '../common/Input';
 import Dropdown from '../common/Dropdown';
 import FileInput from '../common/FileInput';
 import DropdownWithSearch from '../common/DropdownWithSearch';
-
+import axiosInstance from '../../axiosInstance';
 const enrollmentTypeOptions = [
     { label: 'New', value: 'new' },
     { label: 'Transferee', value: 'transferee' },
@@ -26,7 +26,6 @@ const CreateEnrollmentForm = ({ onSave, onClose }) => {
     const [selectedStudentId, setSelectedStudentId] = useState(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-
     const clearFields = () => {
         setFirstName('');
         setLastName('');
@@ -46,11 +45,10 @@ const CreateEnrollmentForm = ({ onSave, onClose }) => {
 
     const fetchYearLevels = async () => {
         try {
-            const res = await fetch('http://localhost:8000/api/year-level');
-            const data = await res.json();
-            setYearLevels(data);
+            const res = await axiosInstance.get('/year-level');
+            setYearLevels(res.data);
         } catch (err) {
-            console.error(err);
+            console.error('Failed to fetch year levels:', err);
         }
     };
 
@@ -97,9 +95,6 @@ const CreateEnrollmentForm = ({ onSave, onClose }) => {
         }
     };
 
-
-
-
     const [students, setStudents] = useState([]);
 
     useEffect(() => {
@@ -110,12 +105,12 @@ const CreateEnrollmentForm = ({ onSave, onClose }) => {
 
     const fetchStudents = async () => {
         try {
-            const res = await fetch('http://localhost:8000/api/student');
-            const data = await res.json();
+            const res = await axiosInstance.get('/student');
+            const data = res.data;
             const formatted = data.students.map(s => ({
                 label: `${s.firstName} ${s.lastName}`,
                 value: s.studentId,
-                photo: s.profilePhoto ? `http://localhost:8000/${s.profilePhoto}` : null,
+                photo: s.profilePhoto ? `${axiosInstance.defaults.baseURL}/${s.profilePhoto}` : null,
                 ...s
             }));
             setStudents(formatted);
@@ -138,7 +133,6 @@ const CreateEnrollmentForm = ({ onSave, onClose }) => {
                                 clearFields();
                             }}
                         />
-
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                         <Dropdown
@@ -232,7 +226,6 @@ const CreateEnrollmentForm = ({ onSave, onClose }) => {
                     </section>
                 )}
 
-
                 {enrollmentType !== 'old/continuing' && (
                     <section>
                         <FileInput
@@ -244,10 +237,9 @@ const CreateEnrollmentForm = ({ onSave, onClose }) => {
                     </section>
                 )}
 
-
                 {/* Buttons */}
                 <div className="flex justify-end gap-3 pt-6 border-t">
-                    <Button type="submit" size="sm" variant="outline" onClick={onClose}>
+                    <Button type="button" size="sm" variant="outline" onClick={onClose}>
                         Cancel
                     </Button>
                     <Button type="submit" size="sm" variant="primary" disabled={isSubmitting}>

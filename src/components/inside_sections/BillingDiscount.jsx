@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../../axiosInstance";
 import Button from "../common/Button";
 import ModalForm from "../common/ModalForm";
 import CreateBillingDiscountForm from "../forms/CreateBillingDiscountForm";
@@ -13,7 +13,7 @@ const BillingDiscount = () => {
 
     const fetchDiscounts = async () => {
         try {
-            const response = await axios.get("http://127.0.0.1:8000/api/billing-discount");
+            const response = await axiosInstance.get("/billing-discount");
             setDiscounts(response.data.data);
         } catch (err) {
             setError("Failed to fetch billing discounts.");
@@ -22,6 +22,7 @@ const BillingDiscount = () => {
             setLoading(false);
         }
     };
+
 
     useEffect(() => {
         fetchDiscounts();
@@ -57,7 +58,7 @@ const BillingDiscount = () => {
     if (error) return <div className="text-red-500">{error}</div>;
 
     return (
-        <div className="max-w-5xl mx-auto">
+        <div>
             <div className="bg-white px-6 py-4 rounded-lg">
                 {discounts.length === 0 ? (
                     <div className="text-sm text-gray-500 italic">No billing discounts available</div>

@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { FiBook, FiUsers } from "react-icons/fi";
+import { FiBook, FiCreditCard, FiUsers } from "react-icons/fi";
 
 function Sidebar({ open, setOpen }) {
     const location = useLocation();
@@ -7,6 +7,7 @@ function Sidebar({ open, setOpen }) {
     const navItems = [
         { path: "/school", label: "School", icon: <FiBook /> },
         { path: "/student", label: "Student", icon: <FiUsers /> },
+        { path: "/billing", label: "Billing", icon: <FiCreditCard /> },
     ];
 
     return (
@@ -25,9 +26,14 @@ function Sidebar({ open, setOpen }) {
                     } lg:translate-x-0 transition-transform duration-300 ease-in-out bg-white border-r shadow-lg`}
             >
                 {/* Branding */}
-                <div className="px-6 py-4 border-b">
-                    <h2 className="text-xl font-bold text-gray-800">BTA of Opol</h2>
+                <div className="px-6 py-4">
+                    <img
+                        src="/default-logo.jpg"
+                        alt="BTA of Opol, Inc."
+                        className="h-9 w-auto object-contain"
+                    />
                 </div>
+
 
                 {/* Nav */}
                 <nav className="p-4 space-y-2">
